@@ -10,29 +10,8 @@ class LinkedList:
     new_node = Node(new_data)
     new_node.next = self.head
     self.head = new_node
-
-
-  def find(self,item):
-
-    current = self.head
-
-    found = False
-    counter = 0
-
-    while current != None and not found:
-
-      if current.data == item:
-        found = True
-      else:
-        current = current.next
-        counter += 1
-
-    if found:
-      return counter
-    else:
-      return -1
-
-
+    return new_node
+    
 
   def length(self):
     if self.head == None:
@@ -55,3 +34,26 @@ class LinkedList:
       for i in range(self.length()):
         print(f'Node {i}: {current.data}')
         current = current.next
+        
+  def find(self,item):
+
+      current = self.head
+
+      found = False
+
+      while current != None and not found:
+        if current.data[0] == item:
+          increment = current.data[1] + 1
+          current = (current.data[0], increment)
+          found = True
+        else:
+          current = current.next
+
+      if found:
+        return current
+      else:
+        return -1
+
+  def replace(self, item):
+    item.next = None
+    self.head = item
