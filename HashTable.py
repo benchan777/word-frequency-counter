@@ -30,6 +30,8 @@ class HashTable:
     distance = ord(first_letter) - ord('a')
     index = distance % self.size
 
+    return index
+
   # 3️⃣ TODO: Complete the insert method.
 
   # Should insert a key value pair into the hash table, where the key is the word and the value 
@@ -39,7 +41,15 @@ class HashTable:
   def insert(self, key, value):
     key_hash = self.hash_func(key)
     item = (key, value)
-    self.arr[key_hash].append(item)
+
+    new_item = self.arr[key_hash].find(key)
+    if new_item != -1:
+      new_object = self.arr[key_hash].append(new_item)
+      self.arr[key_hash].replace(new_object)
+
+    else:
+      self.arr[key_hash].append(item)
+
 
   # 4️⃣ TODO: Complete the print_key_values method.
 
@@ -53,7 +63,5 @@ class HashTable:
   # erase: 2
 
   def print_key_values(self):
-    pass
-
-
-
+    for i in range(self.size):
+      self.arr[i].print_nodes()
