@@ -15,6 +15,7 @@ class HashTable:
   def create_arr(self, size):
     array = []
 
+    # creates an array and populates it with specified number of linked lists
     for i in range(size):
       linkedlist = LinkedList()
       array.append(linkedlist)
@@ -25,6 +26,7 @@ class HashTable:
 
   # Hash functions are a function that turns each of these keys into an index value that we can use to decide where in our list each key:value pair should be stored. 
 
+  # generates an index based on the first letter of each string being input
   def hash_func(self, key):
     first_letter = key[0]
     distance = ord(first_letter) - ord('a')
@@ -39,10 +41,15 @@ class HashTable:
   # hash table, be sure to check if there is a Node with the same key in the table already.
 
   def insert(self, key, value):
+    #run the hash function to generate a key hash
     key_hash = self.hash_func(key)
+    # assign a tuple containing key and value to the variable item
     item = (key, value)
 
+    # run the find method to see if any duplicates exist
     new_item = self.arr[key_hash].find(key)
+
+    #if a duplicate exists, append the duplicate to the linked list, then run the replace method to remove the old duplicate
     if new_item != -1:
       new_object = self.arr[key_hash].append(new_item)
       self.arr[key_hash].replace(new_object)
@@ -63,5 +70,6 @@ class HashTable:
   # erase: 2
 
   def print_key_values(self):
+    # traverses the entire hashtable and prints out all the data in every linked list within the table
     for i in range(self.size):
       self.arr[i].print_nodes()
