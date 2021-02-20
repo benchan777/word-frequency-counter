@@ -57,14 +57,22 @@ class LinkedList:
   def replace(self, item):
     next_item = item.get_next()
     next_next_item = next_item.get_next()
+
+    # replace duplicate node with head by assigning pointer to the node after the duplicate node
+    # if no node exists, set new node pointer to none
     if next_next_item == None:
       item.next = None
+
     else:
 
+      # if a node does exist after the duplicate node, check for the existence of another duplicate node further down the list
+      # if a duplicate node exists further down the list, delete duplicate node
       if self.find(item.data[0]) != -1:
         current = self.head
         second = self.head
 
+        # traverse through the entire list and check for duplicate node by comparing the head to every node in the linked list
+        # if a duplicate is found, delete it by pointing the node previous to the duplicate node to point to the node after the duplciate node
         while second.get_next() != None:
           if second.get_next().data[0] == current.data[0]:
             if second.get_next().get_next() != None:
@@ -76,4 +84,5 @@ class LinkedList:
           else:
             second = second.get_next()
 
+      # sets the new node to point to the next node
       item.next = next_item
